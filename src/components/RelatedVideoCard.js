@@ -45,7 +45,7 @@ const RealtedVideoCard = ({ info }) => {
 
   return (
     <div className="w-full ">
-      <div className="flex gap-2 items-start justify-start flex-row p-2 mx- shadow-md cursor-pointer">
+      <div className="flex flex-col gap-2 items-start justify-start p-2 mx- shadow-md cursor-pointer">
         <img
           className="rounded-lg w-52"
           src={info?.snippet?.thumbnails?.medium?.url}
