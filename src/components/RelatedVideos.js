@@ -10,16 +10,20 @@ const RelatedVideos = () => {
   }, []);
 
   const getVideos = async () => {
-    const data = await fetch(YOUTUBE_VIDEOS_API);
-    const json = await data.json();
-    console.log(json.items);
-    setVideos(json.items);
+    try {
+      const data = await fetch(YOUTUBE_VIDEOS_API);
+      const json = await data.json();
+      setVideos(json.items);
+    } catch (error) {
+      console.error("Error fetching videos:", error);
+    }
   };
+  
   return (
     <div className="fixed w-full min-h-screen bg-pink-200 z-0">
       <div className="fixed h-full overflow-auto bg-white w-full">
         <div className="w-full flex flex-wrap gap-1">
-          {videos.map((video) => (
+          {videos?.map((video) => (
             <Link to={"/watch?v=" + video.id}>
               <RelatedVideoCard key={video.id} info={video} />
             </Link>

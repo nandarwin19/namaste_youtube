@@ -44,8 +44,8 @@ const RealtedVideoCard = ({ info }) => {
   const elapsed = formatElapsedTime(uploadTime);
 
   return (
-    <div className="w-full ">
-      <div className="flex flex-col gap-2 items-start justify-start p-2 mx- shadow-md cursor-pointer">
+    <div className="w-full flex flex-col">
+      <div className="flex gap-2 items-start justify-start p-2 mx- shadow-md cursor-pointer">
         <img
           className="rounded-lg w-52"
           src={info?.snippet?.thumbnails?.medium?.url}
