@@ -52,7 +52,7 @@ const Head = () => {
             <img
               alt="youtube"
               src={youtube}
-              className="h-12 mx-2 object-cover"
+              className="h-12 mx-2 object-cover hidden sm:flex"
             />
           </a>
         </div>

@@ -20,8 +20,8 @@ const RelatedVideos = () => {
   };
 
   return (
-    <div className="fixed w-full min-h-screen bg-pink-200 z-0">
-      <div className="fixed h-full overflow-auto bg-white w-full">
+    <div className="fixed mx-auto flex w-full min-h-screen z-0 bg-pink-200">
+      <div className="fixed w-[90%] mx-auto h-full overflow-auto bg-white md:w-full">
         <div className="w-[500px] flex flex-col flex-wrap gap-1">
           {videos?.map((video) => (
             <Link to={"/watch?v=" + video.id}>

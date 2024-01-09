@@ -99,11 +99,11 @@ const WatchPage = () => {
   }
 
   return (
-    <div className="w-full fixed flex flex-col pt-24 px-4 2xl:flex-row min-h-screen">
-      <div className="w-[80%]">
+    <div className="w-full xl:fixed flex flex-col pt-24 px-4 xl:flex-row min-h-screen overflow-hidden">
+      <div className="w-full xl:w-[60%] ">
         {videoInfo?.thumbnail && (
           <div className="w-full">
-            <div className="w-[90%] 2xl:w-[860px] mx-auto py-4">
+            <div className="w-full 2xl:w-[860px] mx-auto py-4">
               <iframe
                 // width="860px"
                 // height="515"
@@ -112,9 +112,9 @@ const WatchPage = () => {
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen
-                className="rounded-xl h-[350px] md:h-[500px]  w-full 2xl:w-[860px] mx-auto"
+                className="rounded-xl h-[300px] md:h-[400px]  w-full 2xl:w-[90%] mx-auto"
               ></iframe>
-              <p className="text-xl md:text-2xl font-semibold my-2">
+              <p className="text-lg md:text-2xl font-semibold my-2">
                 {videoInfo.title}
               </p>
               {/* <p>{videoInfo.description}</p>
@@ -136,7 +136,7 @@ const WatchPage = () => {
                         <h1 className="text-lg font-semibold">
                           {videoInfo.channelTitle}
                         </h1>
-                        <p className="text-md text-gray-700">
+                        <p className="text-sm sm:text-md text-gray-700">
                           25.5K subscriber
                         </p>
                       </div>
@@ -180,7 +180,7 @@ const WatchPage = () => {
           </div>
         )}
       </div>
-      <div className="w-[50%] mx-auto px-5 overflow-y-hidden">
+      <div className="w-full xl:w-[30%] mx-4">
         <RelatedVideos />
       </div>
     </div>

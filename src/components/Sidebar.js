@@ -14,7 +14,7 @@ const Sidebar = () => {
   return (
     <div className="fixed min-h-screen bg-white z-30">
       <div className="fixed h-full overflow-auto bg-white w-48">
-        <div className="flex flex-col gap-2 ">
+        <div className="flex flex-col gap-2 mt-20">
           {categories.map((category, index) => (
             <div className="flex gap-4 flex-col" key={index}>
               <div className="flex font-bold">{category?.main}</div>

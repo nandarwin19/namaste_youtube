@@ -5,23 +5,33 @@ import { Link } from "react-router-dom";
 
 const VideoContainer = () => {
   const [videos, setVideos] = useState([]);
+
+  const getVideos = async () => {
+    try {
+      const data = await fetch(YOUTUBE_VIDEOS_API);
+      const json = await data.json();
+      console.log(json?.items);
+      setVideos(json.items);
+    } catch (error) {
+      console.error("Error fetching videos:", error);
+    }
+  };
+
   useEffect(() => {
     getVideos();
   }, []);
 
-  const getVideos = async () => {
-    const data = await fetch(YOUTUBE_VIDEOS_API);
-    const json = await data.json();
-    console.log(json.items);
-    setVideos(json.items);
-  };
   return (
     <div className="flex flex-wrap justify-evenly gap-2">
-      {videos.map((video) => (
-        <Link to={"/watch?v=" + video.id}>
-          <VideoCard key={video.id} info={video} />
-        </Link>
-      ))}
+      {videos && videos.length > 0 ? (
+        videos.map((video) => (
+          <Link to={"/watch?v=" + video.id} key={video.id}>
+            <VideoCard info={video} />
+          </Link>
+        ))
+      ) : (
+        <p>No videos available</p>
+      )}
     </div>
   );
 };

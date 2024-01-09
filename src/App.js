@@ -28,7 +28,7 @@ function App() {
     <Provider store={store}>
       <div>
         <Head />
-        <div className="px-5">
+        <div className="px-5 overflow-hidden">
           <RouterProvider router={appRouter} />
         </div>
 
