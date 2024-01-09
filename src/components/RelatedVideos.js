@@ -18,11 +18,11 @@ const RelatedVideos = () => {
       console.error("Error fetching videos:", error);
     }
   };
-  
+
   return (
     <div className="fixed w-full min-h-screen bg-pink-200 z-0">
       <div className="fixed h-full overflow-auto bg-white w-full">
-        <div className="w-full flex flex-wrap gap-1">
+        <div className="w-[500px] flex flex-col flex-wrap gap-1">
           {videos?.map((video) => (
             <Link to={"/watch?v=" + video.id}>
               <RelatedVideoCard key={video.id} info={video} />

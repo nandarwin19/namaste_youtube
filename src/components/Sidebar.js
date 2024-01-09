@@ -12,7 +12,7 @@ const Sidebar = () => {
   if (!isMenuOpen) return null;
 
   return (
-    <div className="fixed min-h-screen bg-white z-0">
+    <div className="fixed min-h-screen bg-white z-30">
       <div className="fixed h-full overflow-auto bg-white w-48">
         <div className="flex flex-col gap-2 ">
           {categories.map((category, index) => (

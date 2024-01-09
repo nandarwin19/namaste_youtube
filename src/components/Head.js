@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import youtube from "../assets/youtube.png";
 import menu from "../assets/menu.png";
 import user from "../assets/user.png";
-import search from "../assets/search.png";
+import searchpng from "../assets/search.png";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { SUGGUESTION_API } from "../utils/constant";
@@ -39,8 +39,8 @@ const Head = () => {
   };
 
   return (
-    <div className="w-full fixed bg-white z-10">
-      <div className="grid grid-flow-col p-5 m-2 shadow-lg items-center z-50">
+    <div className="w-full fixed bg-white z-50">
+      <div className="grid grid-flow-col p-5 shadow-lg items-center z-50">
         <div className="flex col-span-1 items-center justify-center">
           <img
             onClick={() => toggleMenuHandler()}
@@ -66,7 +66,7 @@ const Head = () => {
           />
           {console.log(search)}
           <button className="border border-gray-400 rounded-r-full px-4 py-1.5">
-            <img src={search} alt="search" className="h-6" />
+            <img src={searchpng} alt="search" className="h-6" />
           </button>
         </div>
 

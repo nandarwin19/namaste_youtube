@@ -18,31 +18,6 @@ const RealtedVideoCard = ({ info }) => {
     }
   }
 
-  function formatElapsedTime(uploadTime) {
-    const now = new Date();
-    const uploadDate = new Date(uploadTime);
-
-    const timeDifference = now - uploadDate;
-    const seconds = Math.floor(timeDifference / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-
-    if (days > 0) {
-      return days === 1 ? "1 day ago" : `${days} days ago`;
-    } else if (hours > 0) {
-      return hours === 1 ? "1 hour ago" : `${hours} hours ago`;
-    } else if (minutes > 0) {
-      return minutes === 1 ? "1 minute ago" : `${minutes} minutes ago`;
-    } else {
-      return "Just now";
-    }
-  }
-
-  // Example usage with a given upload time
-  const uploadTime = info?.snippet?.localized?.publishedAt;
-  const elapsed = formatElapsedTime(uploadTime);
-
   return (
     <div className="w-full flex flex-col">
       <div className="flex gap-2 items-start justify-start p-2 mx- shadow-md cursor-pointer">
@@ -54,16 +29,23 @@ const RealtedVideoCard = ({ info }) => {
         <ul>
           <li
             className="font-medium py-1 whitespace-normal overflow-hidden"
-            style={{ flexWrap: "wrap" }}
+            style={{
+              display: "-webkit-box",
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              WebkitLineClamp: 2,
+              flexWrap: "wrap",
+            }}
           >
             {info?.snippet?.title}
           </li>
 
           <li className="text-sm">{info?.snippet?.channelTitle}</li>
-          <li>
-            {formatViewCount(info?.statistics.viewCount)} views •{" "}
-            {/* {info?.snippet?.localized?.publishedAt} */}
-            {elapsed}
+          <li className="flex flex-row">
+            <p className="text-[13px]">
+              {formatViewCount(info?.statistics.viewCount)} views •{" "}
+            </p>
+            <p className="text-[13px]">1 day ago</p>
           </li>
         </ul>
       </div>
