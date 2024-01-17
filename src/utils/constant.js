@@ -72,4 +72,6 @@ export const YOUTUBE_API =
   GOOGLE_API_KEY;
 export const YOUTUBE_VIDEOS_API = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&key=${GOOGLE_API_KEY}`;
 export const YOUTUBE_VIDEO_WATCH_API = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&key=${GOOGLE_API_KEY}&id=`;
-export const SUGGUESTION_API = `http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=`;
+export const SUGGESTION_API = `http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=`;
+
+// AIzaSyDbYgqSgOhQKn7si_x1LhPlkXWWeTjLr4E;

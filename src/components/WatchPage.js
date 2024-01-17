@@ -8,11 +8,13 @@ import disLikeIcon from "../assets/dislike.svg";
 import shareIcon from "../assets/share.svg";
 import moreIcon from "../assets/more.svg";
 import RelatedVideos from "./RelatedVideos";
+import LiveChat from "./LiveChat";
 
 const WatchPage = () => {
   const [searchParams] = useSearchParams();
   const videoId = searchParams.get("v");
   const dispatch = useDispatch();
+  const [chatToggle, setChatToggle] = useState(false);
   // const [relatedVideos, setRelatedVideos] = useState([]);
   const [videoInfo, setVideoInfo] = useState({
     title: "",
@@ -117,11 +119,7 @@ const WatchPage = () => {
               <p className="text-lg md:text-2xl font-semibold my-2">
                 {videoInfo.title}
               </p>
-              {/* <p>{videoInfo.description}</p>
-          
-          <p>{videoInfo?.tags}</p>
-          <p>{videoInfo?.viewCount}</p>
-          <p>{videoInfo?.likeCount}</p> */}
+
               <div className="w-full my-4">
                 <div className="flex flex-col md:flex-row md:flex-between items-center w-full gap-2">
                   <div className="flex items-center justify-start gap-3 w-full lg:w-1/2">
@@ -181,7 +179,16 @@ const WatchPage = () => {
         )}
       </div>
       <div className="w-full xl:w-[30%] mx-4">
-        <RelatedVideos />
+        {chatToggle && (
+          <div className="fixed mx-auto flex w-full min-h-screen z-0 bg-pink-200">
+            <div className="fixed w-[90%] mx-auto h-full overflow-auto bg-white md:w-full">
+              <RelatedVideos />
+            </div>
+          </div>
+        )}
+        <div className="max-w-lg border border-slate-300 shadow-xl p-4 rounded-lg">
+          <LiveChat chatToggle={chatToggle} setChatToggle={setChatToggle} />
+        </div>
       </div>
     </div>
   );

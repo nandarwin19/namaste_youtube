@@ -30,7 +30,7 @@ const VideoContainer = () => {
           </Link>
         ))
       ) : (
-        <p>No videos available</p>
+        <p>loading...</p>
       )}
     </div>
   );

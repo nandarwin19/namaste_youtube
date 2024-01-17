@@ -1,70 +1,156 @@
-# Getting Started with Create React App
+## Namaste Youtube
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- useSearchParams()
+- Redux
+  create store and create slice by using..
+  then create reducers and how should we use it
 
-## Available Scripts
+//////////////////////////////////////////////////////////////////
 
-In the project directory, you can run:
+Redux store
 
-### `npm start`
+### Step 1: Create a Redux Store
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**`store.js`**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Create a file named `store.js` to configure and export the Redux store:
 
-### `npm test`
+```javascript
+// store.js
+import { configureStore } from "@reduxjs/toolkit";
+import cartReducer from "./cartSlice";
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+// Configure and create a Redux store
+const store = configureStore({
+  reducer: {
+    cart: cartReducer,
+  },
+});
 
-### `npm run build`
+// Export the Redux store
+export default store;
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Step 2: Create a Slice with Reducers
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**`cartSlice.js`**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Create another file named `cartSlice.js` to define a Redux slice for managing a shopping cart. The `createSlice` function is used to generate action creators and a reducer.
 
-### `npm run eject`
+```javascript
+// cartSlice.js
+import { createSlice } from "@reduxjs/toolkit";
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+// Create a slice for the "cart" state
+const cartSlice = createSlice({
+  name: "cart", // The name of the slice
+  initialState: {
+    items: [], // Initial state for the shopping cart
+  },
+  reducers: {
+    addItemToCart: (state, action) => {
+      state.items.push(action.payload);
+    },
+    removeItemFromCart: (state, action) => {
+      state.items = state.items.filter((item) => item.id !== action.payload.id);
+    },
+    calculateTotal: (state) => {
+      state.total = state.items.reduce((total, item) => total + item.price, 0);
+    },
+  },
+});
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+// Extract and export action creators and the reducer
+export const { addItemToCart, removeItemFromCart, calculateTotal } =
+  cartSlice.actions;
+export default cartSlice.reducer;
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Step 3: Use Redux Store in a React Component
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**`ShoppingCartComponent.js`**
 
-## Learn More
+Create a React component (`ShoppingCartComponent.js`) that uses the Redux store, subscribes to the state, and dispatches actions to update the state.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```javascript
+// ShoppingCartComponent.js
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addItemToCart, removeItemFromCart, calculateTotal } from "./cartSlice";
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+function ShoppingCartComponent() {
+  // Access the cart state from the Redux store
+  const cartItems = useSelector((state) => state.cart.items);
+  const total = useSelector((state) => state.cart.total);
 
-### Code Splitting
+  // Access the dispatch function
+  const dispatch = useDispatch();
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  // Dispatch actions to update the cart state
+  const handleAddToCart = (item) => {
+    dispatch(addItemToCart(item));
+    dispatch(calculateTotal());
+  };
 
-### Analyzing the Bundle Size
+  const handleRemoveFromCart = (item) => {
+    dispatch(removeItemFromCart(item));
+    dispatch(calculateTotal());
+  };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  return (
+    <div>
+      <h2>Shopping Cart</h2>
+      <ul>
+        {cartItems.map((item) => (
+          <li key={item.id}>
+            {item.name} - ${item.price.toFixed(2)}
+            <button onClick={() => handleRemoveFromCart(item)}>Remove</button>
+          </li>
+        ))}
+      </ul>
+      <p>Total: ${total.toFixed(2)}</p>
+      <button
+        onClick={() => handleAddToCart({ id: 1, name: "Item A", price: 10.99 })}
+      >
+        Add Item A to Cart
+      </button>
+      <button
+        onClick={() => handleAddToCart({ id: 2, name: "Item B", price: 7.49 })}
+      >
+        Add Item B to Cart
+      </button>
+    </div>
+  );
+}
 
-### Making a Progressive Web App
+export default ShoppingCartComponent;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Step 4: Integrate the Store and Component in the App
 
-### Advanced Configuration
+**`App.js` or `index.js`**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Integrate the Redux store into your main application file (e.g., `App.js` or `index.js`) using the `Provider` component from `react-redux`. This ensures that your Redux store is available to all components in your application.
 
-### Deployment
+```javascript
+// App.js or index.js
+import React from "react";
+import { Provider } from "react-redux";
+import store from "./store";
+import ShoppingCartComponent from "./ShoppingCartComponent";
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+function App() {
+  return (
+    <Provider store={store}>
+      <div>
+        <h1>Redux Shopping Cart App</h1>
+        <ShoppingCartComponent />
+      </div>
+    </Provider>
+  );
+}
 
-### `npm run build` fails to minify
+export default App;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This example sets up a Redux store for managing a shopping cart. The `ShoppingCartComponent` uses the store to display the items in the cart, add items to the cart, remove items, and calculate the total price. The state is managed globally through Redux, and actions are dispatched to update that state.

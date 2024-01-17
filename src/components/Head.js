@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import youtube from "../assets/youtube.png";
 import menu from "../assets/menu.png";
 import user from "../assets/user.png";
-import searchpng from "../assets/search.png";
+import search from "../assets/search.png";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { SUGGUESTION_API } from "../utils/constant";
@@ -39,40 +39,37 @@ const Head = () => {
   };
 
   return (
-    <div className="w-full fixed bg-white z-50">
-      <div className="grid grid-flow-col p-5 shadow-lg items-center z-50">
-        <div className="flex col-span-1 items-center justify-center">
+    <div className="fixed w-full grid grid-flow-col p-5 shadow-2xl z-50 bg-white items-center">
+      <div className="ml-5 flex col-span-1 items-center justify-start gap-3">
+        <img
+          onClick={() => toggleMenuHandler()}
+          alt="menu"
+          src={menu}
+          className="h-5 object-cover cursor-pointer"
+        />
+        <a href="/">
+          <img alt="youtube" src={youtube} className="h-12 mx-2 object-cover" />
+        </a>
+      </div>
+
+      <div className="flex flex-row relative">
+        <input
+          className="border rounded-l-full w-[572px] h-10 pl-5 outline-none"
+          type="text"
+          placeholder="Search"
+        />
+        <button className="border rounded-r-full w-16 h-10 bg-gray-100">
           <img
-            onClick={() => toggleMenuHandler()}
-            alt="menu"
-            src={menu}
-            className="h-5 object-cover cursor-pointer"
+            alt="search-icon"
+            className="h-5 mx-auto"
+            src="https://cdn-icons-png.flaticon.com/512/482/482631.png"
           />
-          <a href="/">
-            <img
-              alt="youtube"
-              src={youtube}
-              className="h-12 mx-2 object-cover hidden sm:flex"
-            />
-          </a>
-        </div>
+        </button>
+        <div className="w-10 h-10 hover:rounded-full hover:bg-gray-100 ml-5 cursor-pointer"></div>
+      </div>
 
-        <div className="col-span-10 text-center flex items-center justify-center">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-1/2 border border-gray-400 rounded-l-full px-4 py-1.5"
-          />
-          {console.log(search)}
-          <button className="border border-gray-400 rounded-r-full px-4 py-1.5">
-            <img src={searchpng} alt="search" className="h-6" />
-          </button>
-        </div>
-
-        <div className="col-span-1">
-          <img alt="user" src={user} className="w-8 h-8 object-cover" />
-        </div>
+      <div className="col-span-1">
+        <img alt="user" src={user} className="w-8 h-8 object-cover" />
       </div>
     </div>
   );
